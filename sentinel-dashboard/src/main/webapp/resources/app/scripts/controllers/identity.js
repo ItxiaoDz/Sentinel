@@ -1,7 +1,7 @@
 var app = angular.module('sentinelDashboardApp');
 
 app.controller('IdentityCtl', ['$scope', '$stateParams', 'IdentityService',
-  'ngDialog', 'FlowServiceV2', 'DegradeService', 'AuthorityRuleService', 'ParamFlowServiceV2', 'MachineService',
+  'ngDialog', 'FlowServiceV2', 'DegradeServiceV2', 'AuthorityRuleService', 'ParamFlowServiceV2', 'MachineService',
   '$interval', '$location', '$timeout',
   function ($scope, $stateParams, IdentityService, ngDialog,
     FlowService, DegradeService, AuthorityRuleService, ParamFlowService, MachineService, $interval, $location, $timeout) {
@@ -163,7 +163,7 @@ app.controller('IdentityCtl', ['$scope', '$stateParams', 'IdentityService',
       DegradeService.newRule(degradeRuleDialogScope.currentRule).success(function (data) {
         if (data.code === 0) {
           degradeRuleDialog.close();
-          var url = '/dashboard/degrade/' + $scope.app;
+          var url = '/dashboard/v2/degrade/' + $scope.app;
           $location.path(url);
         } else {
           alert('失败：' + data.msg);

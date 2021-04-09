@@ -5,4 +5,5 @@ public class NacosConstants {
     public static final String GROUP_ID = "DEFAULT_GROUP";
 
     public static final String PARAM_FLOW_DATA_ID_POSTFIX = "-sentinel-param-flow";
+    public static final String DEGRADE_DATA_ID_POSTFIX = "-sentinel-degrade";
 }

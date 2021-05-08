@@ -391,5 +391,20 @@ angular
                   });
               }]
           }
+      })
+      .state('dashboard.gatewayFlowV2', {
+          templateUrl: 'app/views/gateway/flow_v2.html',
+          url: '/gateway/v2/flow/:app',
+          controller: 'GatewayFlowCtlV2',
+          resolve: {
+              loadMyFiles: ['$ocLazyLoad', function ($ocLazyLoad) {
+                  return $ocLazyLoad.load({
+                      name: 'sentinelDashboardApp',
+                      files: [
+                          'app/scripts/controllers/gateway/flow_v2.js',
+                      ]
+                  });
+              }]
+          }
       });
   }]);

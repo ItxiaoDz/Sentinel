@@ -1,7 +1,7 @@
 var app = angular.module('sentinelDashboardApp');
 
 app.controller('GatewayIdentityCtl', ['$scope', '$stateParams', 'IdentityService',
-  'ngDialog', 'GatewayFlowService', 'GatewayApiService', 'DegradeService', 'MachineService',
+  'ngDialog', 'GatewayFlowServiceV2', 'GatewayApiService', 'DegradeServiceV2', 'MachineService',
   '$interval', '$location', '$timeout',
   function ($scope, $stateParams, IdentityService, ngDialog,
     GatewayFlowService, GatewayApiService, DegradeService, MachineService, $interval, $location, $timeout) {
@@ -137,7 +137,7 @@ app.controller('GatewayIdentityCtl', ['$scope', '$stateParams', 'IdentityService
       GatewayFlowService.newRule(gatewayFlowRuleDialogScope.currentRule).success(function (data) {
         if (data.code === 0) {
           gatewayFlowRuleDialog.close();
-          let url = '/dashboard/gateway/flow/' + $scope.app;
+          let url = '/dashboard/gateway/v2/flow/' + $scope.app;
           $location.path(url);
         } else {
           alert('失败!');
@@ -168,14 +168,16 @@ app.controller('GatewayIdentityCtl', ['$scope', '$stateParams', 'IdentityService
       var mac = $scope.macInputModel.split(':');
       degradeRuleDialogScope = $scope.$new(true);
       degradeRuleDialogScope.currentRule = {
-        enable: false,
+        // enable: false,
         grade: 0,
         strategy: 0,
         resource: resource,
         limitApp: 'default',
         app: $scope.app,
         ip: mac[0],
-        port: mac[1]
+        port: mac[1],
+        minRequestAmount: 5,
+        statIntervalMs: 1000,
       };
 
       degradeRuleDialogScope.degradeRuleDialog = {
@@ -202,7 +204,7 @@ app.controller('GatewayIdentityCtl', ['$scope', '$stateParams', 'IdentityService
       DegradeService.newRule(degradeRuleDialogScope.currentRule).success(function (data) {
         if (data.code == 0) {
           degradeRuleDialog.close();
-          var url = '/dashboard/degrade/' + $scope.app;
+          var url = '/dashboard/v2/degrade/' + $scope.app;
           $location.path(url);
         } else {
           alert('失败!');
